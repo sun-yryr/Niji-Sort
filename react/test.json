@@ -1,0 +1,56 @@
+{
+    "kind": "youtube#video",
+    "etag": "\"p4VTdlkQv3HQeTEaXgvLePAydmU/Q2Pwdrmgb99iGmNWP0NhHiskvw0\"",
+    "id": "5FvEdpjtdr4",
+    "snippet": {
+        "publishedAt": "2019-09-21T17:14:22.000Z",
+        "channelId": "UCwQ9Uv-m8xkE5PzRc7Bqx3Q",
+        "title": "【検証】にじさんじDMMスクラッチ３万円分開封します。コンプできるよなあ！？【御伽原江良/にじさんじ】",
+        "description": "◯リンク\n【Twitter】\n　https://twitter.com/OtogibaraEra\n　#御伽原江良　#御伽の国の舞踏会\n\n【お問い合わせやプレゼントはこちら】\nhttps://nijisanji.ichikara.co.jp/cont...\n\n【公式オンラインショップ】\nhttps://nijisanji.booth.pm/\n\n【Pixiv fanbox】\nhttps://www.pixiv.net/fanbox/creator/...\n\n【にじさんじ公式Twitter】\nhttps://twitter.com/nijisanji_app\n《@nijisanji_app 》\n\n【にじさんじ公式HP】\nhttps://nijisanji.ichikara.co.jp/",
+        "thumbnails": {
+            "default": {
+                "url": "https://i.ytimg.com/vi/5FvEdpjtdr4/default.jpg",
+                "width": 120,
+                "height": 90
+            },
+            "medium": {
+                "url": "https://i.ytimg.com/vi/5FvEdpjtdr4/mqdefault.jpg",
+                "width": 320,
+                "height": 180
+            },
+            "high": {
+                "url": "https://i.ytimg.com/vi/5FvEdpjtdr4/hqdefault.jpg",
+                "width": 480,
+                "height": 360
+            }
+        },
+        "channelTitle": "御伽原 江良 / Otogibara Era【にじさんじ】",
+        "tags": [
+            "UCwQ9Uv-m8xkE5PzRc7Bqx3Q",
+            "バーチャルYoutuber",
+            "バーチャル",
+            "Youtuber",
+            "Vtuber",
+            "にじさんじ",
+            "御伽原江良",
+            "OtogibaraEra",
+            "おとぎばらえら",
+            "ギバラ",
+            "DMMスクラッチ",
+            "開封配信"
+        ],
+        "categoryId": "22",
+        "liveBroadcastContent": "none",
+        "localized": {
+            "title": "【検証】にじさんじDMMスクラッチ３万円分開封します。コンプできるよなあ！？【御伽原江良/にじさんじ】",
+            "description": "◯リンク\n【Twitter】\n　https://twitter.com/OtogibaraEra\n　#御伽原江良　#御伽の国の舞踏会\n\n【お問い合わせやプレゼントはこちら】\nhttps://nijisanji.ichikara.co.jp/cont...\n\n【公式オンラインショップ】\nhttps://nijisanji.booth.pm/\n\n【Pixiv fanbox】\nhttps://www.pixiv.net/fanbox/creator/...\n\n【にじさんじ公式Twitter】\nhttps://twitter.com/nijisanji_app\n《@nijisanji_app 》\n\n【にじさんじ公式HP】\nhttps://nijisanji.ichikara.co.jp/"
+        }
+    },
+    "statistics": {
+        "viewCount": "69150",
+        "likeCount": "2362",
+        "dislikeCount": "250",
+        "favoriteCount": "0",
+        "commentCount": "20"
+    }
+}
