@@ -57,7 +57,7 @@ async function getChannelData(channelId: string, group: string) {
         let q: string;
         if (rows.length !== 0) {
             // 存在する
-            q = `UPDATE Channels SET viewCount = ${statistics.viewCount}, subscriberCount = ${statistics.subscriberCount}, videoCount = ${statistics.videoCount} WHERE channelId = '${id}'`;
+            q = `UPDATE Channels SET viewCount = ${statistics.viewCount}, subscriberCount = ${statistics.subscriberCount}, videoCount = ${statistics.videoCount} groupName = '${group}'  WHERE channelId = '${id}'`;
         } else {
             // チャンネル情報をdbに入れる
             q = `INSERT INTO Channels VALUES ( '${id}', '${oreore_mysql_escape(snippet.title)}', '${oreore_mysql_escape(snippet.description)}', '${snippet.thumbnails.medium.url}', '${snippet.publishedAt}'`;
@@ -169,9 +169,9 @@ function log_write(message: string) {
 async function main() {
     /* 順番にチャンネルidを取得していく */
     let id: string;
-    let index = 16;
+    let index = 1;
     let quote_counter = 0;
-    let max_quote = 20000;
+    let max_quote = 15000;
     while(true) {
         log_write(`${quote_counter}`);
         const res = await getChannelId(index);

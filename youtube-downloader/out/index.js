@@ -11,9 +11,8 @@ const moment_1 = __importDefault(require("moment"));
 const fs_1 = __importDefault(require("fs"));
 const pool = mariadb_1.default.createPool({
     host: 'localhost',
-    user: 'yryr',
+    user: process.env.DBUSER,
     password: process.env.DBPASS,
-    //database: "test-sort",
     database: process.env.DBNAME,
     connectionLimit: 5
 });
@@ -63,7 +62,7 @@ async function getChannelData(channelId, group) {
         let q;
         if (rows.length !== 0) {
             // 存在する
-            q = `UPDATE Channels SET viewCount = ${statistics.viewCount}, subscriberCount = ${statistics.subscriberCount}, videoCount = ${statistics.videoCount} WHERE channelId = '${id}'`;
+            q = `UPDATE Channels SET viewCount = ${statistics.viewCount}, subscriberCount = ${statistics.subscriberCount}, videoCount = ${statistics.videoCount} groupName = '${group}'  WHERE channelId = '${id}'`;
         }
         else {
             // チャンネル情報をdbに入れる
@@ -174,9 +173,9 @@ function log_write(message) {
 async function main() {
     /* 順番にチャンネルidを取得していく */
     let id;
-    let index = 16;
+    let index = 1;
     let quote_counter = 0;
-    let max_quote = 30000;
+    let max_quote = 15000;
     while (true) {
         log_write(`${quote_counter}`);
         const res = await getChannelId(index);
