@@ -1,49 +1,51 @@
 import React from 'react';
-import { Card, CardContent, Box, Typography, CardActionArea, Hidden } from '@material-ui/core';
+import {
+    Card, CardContent, Box, Typography, CardActionArea, Hidden,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import withRouter from 'react-router-dom/withRouter';
 
 import * as API from '../actions/SunApi';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     card: {
-        margin: "10px",
-        width: "auto",
+        margin: '10px',
+        width: 'auto',
         [theme.breakpoints.up('sm')]: {
-            width: "100%",
+            width: '100%',
         },
         [theme.breakpoints.up('md')]: {
-            width: "45%",
+            width: '45%',
         },
         [theme.breakpoints.up('lg')]: {
-            width: "600px",
+            width: '600px',
         },
     },
     actionArea: {
-        height: "100%",
-        width: "100%"
+        height: '100%',
+        width: '100%',
     },
     media: {
-        maxWidth: "100px",
-        maxHeight: "100px",
+        maxWidth: '100px',
+        maxHeight: '100px',
     },
     textbox: {
-        margin: "5px 10px"
+        margin: '5px 10px',
     },
     xsTitle: {
-        overflow: "hidden",
-        whiteSpace: "nowrap",
-        textOverflow: "ellipsis",
-        width: "100px"
-    }
-}))
+        overflow: 'hidden',
+        whiteSpace: 'nowrap',
+        textOverflow: 'ellipsis',
+        width: '100px',
+    },
+}));
 
 export default withRouter((props) => {
     const classes = useStyles();
-    const json = props.json;
+    const { json } = props;
     return (
         <Card className={classes.card}>
-            <CardActionArea className={classes.actionArea} onClick={() => props.history.push("/channel/"+json.channelId)}>
+            <CardActionArea className={classes.actionArea} onClick={() => props.history.push(`/channel/${json.channelId}`)}>
                 <CardContent>
                     <Hidden xsDown>
                         <Box display="flex">
@@ -64,4 +66,4 @@ export default withRouter((props) => {
             </CardActionArea>
         </Card>
     );
-})
+});

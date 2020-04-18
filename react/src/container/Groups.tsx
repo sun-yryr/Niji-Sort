@@ -1,13 +1,13 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
 
-import ChannelList from '../component/ChannelList';
 import Route from 'react-router-dom/Route';
 
 import { withStyles } from '@material-ui/core/styles';
 
 import * as API from '../actions/SunApi';
-import VideoList from '../container/VideoList';
+import GroupList from '../component/GroupList';
+import VideoList from './VideoList';
 
 const useStyles = theme => ({
     button: {
@@ -15,45 +15,51 @@ const useStyles = theme => ({
     }
 })
 
-class Channels extends React.Component {
+class Groups extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             status: false,
             result: [],
-            filted: [],
             load: true,
             nowIndex: 0
         }
-        API.getChannelsList()
+        API.getGroupsList()
             .then((res) => {
                 // ここ，ちゃんとnullはcatchで取れるようにする
                 if (res) {
                     this.setState({result: res});
-                    this.setState({filted: res});
                     this.setState({status: true});
                     this.setState({load: false});
                 }
             })
-        this.changeQuery = this.changeQuery.bind(this);
+        this.nextPage = this.nextPage.bind(this);
+        this.prevPage = this.prevPage.bind(this);
     }
 
-    changeQuery(e) {
-        const update_result = this.state.result.filter(value => {
-            return value.title.toLowerCase().search( e.toLowerCase()) !== -1;
-        });
-        this.setState({filted: update_result});
+    nextPage() {
+        if (this.state.nowIndex + 30 < this.state.result.length) {
+            this.setState({nowIndex: this.state.nowIndex+30})
+            window.scrollTo(0, 0);
+        }
+    }
+
+    prevPage() {
+        if (this.state.nowIndex - 30 >= 0) {
+            this.setState({nowIndex: this.state.nowIndex-30})
+            window.scrollTo(0, 0);
+        }
     }
 
     render() {
-        const { filted } = this.state
+        const { result } = this.state
         return (
             <Box>
-                <Route exact path="/channel" render={() => <ChannelList result={filted} changeQuery={this.changeQuery}/>} />
-                <Route exact path="/channel/:channelId" component={VideoList} />
+                <Route exact path="/group" render={() => <GroupList result={result} />} />
+                <Route exact path="/group/:groupName" component={VideoList} />
             </Box>
         );
     }
 }
 
-export default withStyles(useStyles)(Channels);
+export default withStyles(useStyles)(Groups);

@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Box } from '@material-ui/core';
 import ChannelCard from './ChannelCard';
 import Spinner from './Spinner';
-import SearchBox from '../component/SearchBox';
+import SearchBox from './SearchBox';
 
 
 export default (props) => {

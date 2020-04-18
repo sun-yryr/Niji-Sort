@@ -10,18 +10,18 @@ import grey from '@material-ui/core/colors/grey';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import withRouter from 'react-router-dom/withRouter';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     grow: {
-        width: "100%"
+        width: '100%',
     },
     appber: {
-        backgroundColor: red[500]
+        backgroundColor: red[500],
     },
     menuButton: {
         marginRight: theme.spacing(2),
     },
     search: {
-        border: "thin solid",
+        border: 'thin solid',
         borderColor: grey[50],
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
@@ -71,8 +71,8 @@ const useStyles = makeStyles(theme => ({
     },
     button: {
         backgroundColor: 'inherit',
-        color: 'inherit'
-    }
+        color: 'inherit',
+    },
 }));
 
 export default withRouter((props) => {
@@ -85,11 +85,11 @@ export default withRouter((props) => {
                     className={classes.menuButton}
                     color="inherit"
                     aria-label="open drawer"
-                    onClick={() => props.history.push("/")}
+                    onClick={() => props.history.push('/')}
                 >
                     <HomeIcon />
                 </IconButton>
-                <ButtonBase disableTouchRipple={true} onClick={() => props.history.push("/")}>
+                <ButtonBase disableTouchRipple onClick={() => props.history.push('/')}>
                     <Typography variant="h6" noWrap>
                         にじそーと
                     </Typography>
@@ -97,4 +97,4 @@ export default withRouter((props) => {
             </Toolbar>
         </AppBar>
     );
-})
+});
