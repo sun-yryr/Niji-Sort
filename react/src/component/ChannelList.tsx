@@ -14,5 +14,5 @@ export default (props) => {
                 {(props.result) ? (props.result.map(item => <ChannelCard key={item.channelId} json={item} />)) : <Spinner />}
             </Grid>
         </Box>
-    )
-}
+    );
+};

@@ -3,9 +3,9 @@ import {
     Card, CardContent, Box, Typography, CardActionArea, Hidden,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import withRouter from 'react-router-dom/withRouter';
+import { withRouter } from 'react-router-dom';
 
-import * as API from '../actions/SunApi';
+import { multByteStringSlice } from '../actions/SunApi';
 
 const useStyles = makeStyles((theme) => ({
     card: {
@@ -52,7 +52,7 @@ export default withRouter((props) => {
                             <img alt={json.title} className={classes.media} src={json.thumbnailUrl} />
                             <Box className={classes.textbox} display="flex" flexDirection="column">
                                 <Typography variant="h5">{json.title}</Typography>
-                                <Typography variant="caption">{API.multByteStringSlice(json.description, 100)}</Typography>
+                                <Typography variant="caption">{multByteStringSlice(json.description, 100)}</Typography>
                             </Box>
                         </Box>
                     </Hidden>
