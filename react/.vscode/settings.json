@@ -1,0 +1,8 @@
+{
+    "eslint.alwaysShowStatus": true,
+    "eslint.nodePath": "/node_modules/.bin/eslint",
+    "eslint.validate": [
+        "typescript",
+        "typescriptreact"
+    ]
+}
