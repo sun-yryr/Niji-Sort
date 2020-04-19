@@ -3,15 +3,21 @@ import { Grid, Box } from '@material-ui/core';
 import ChannelCard from './ChannelCard';
 import Spinner from './Spinner';
 import SearchBox from './SearchBox';
+import { Channel } from '../types';
 
+interface Props {
+    result: Channel[]
+    changeQuery: () => void
+}
 
-export default (props) => {
-    if (!props.result) return null;
+export default (props: Props) => {
+    const { result, changeQuery } = props;
+    if (result.length === 0) return <Spinner />;
     return (
         <Box>
-            <SearchBox changeQuery={props.changeQuery} />
+            <SearchBox changeQuery={changeQuery} />
             <Grid container direction="row" justify="space-around">
-                {(props.result) ? (props.result.map(item => <ChannelCard key={item.channelId} json={item} />)) : <Spinner />}
+                {result.map((item) => <ChannelCard key={item.channelId} channel={item} />)}
             </Grid>
         </Box>
     );

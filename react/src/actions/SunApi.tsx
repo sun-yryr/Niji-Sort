@@ -1,13 +1,15 @@
 import axios from 'axios';
+// Types
+import { Channel } from '../types';
 
 const SERVER_URL = 'https://ytsort.sun-yryr.com/api';
 
-export async function getChannelsList() {
+export async function getChannelsList(): Promise<Channel[] | null> {
     const requestUrl = `${SERVER_URL}/list/channels`;
     const res = await axios.get(requestUrl)
         // FIX: ちゃんとハンドリングしましょう
         .catch(() => null);
-    return res ? res.data : res;
+    return res ? res.data as Channel[] : res;
 }
 
 

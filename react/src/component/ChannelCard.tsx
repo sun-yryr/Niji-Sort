@@ -3,9 +3,10 @@ import {
     Card, CardContent, Box, Typography, CardActionArea, Hidden,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { withRouter } from 'react-router-dom';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import { multByteStringSlice } from '../actions/SunApi';
+import { Channel } from '../types';
 
 const useStyles = makeStyles((theme) => ({
     card: {
@@ -40,26 +41,30 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default withRouter((props) => {
+interface Props extends RouteComponentProps {
+    channel: Channel
+}
+
+export default withRouter((props: Props) => {
     const classes = useStyles();
-    const { json } = props;
+    const { channel } = props;
     return (
         <Card className={classes.card}>
-            <CardActionArea className={classes.actionArea} onClick={() => props.history.push(`/channel/${json.channelId}`)}>
+            <CardActionArea className={classes.actionArea} onClick={() => props.history.push(`/channel/${channel.channelId}`)}>
                 <CardContent>
                     <Hidden xsDown>
                         <Box display="flex">
-                            <img alt={json.title} className={classes.media} src={json.thumbnailUrl} />
+                            <img alt={channel.title} className={classes.media} src={channel.thumbnailUrl} />
                             <Box className={classes.textbox} display="flex" flexDirection="column">
-                                <Typography variant="h5">{json.title}</Typography>
-                                <Typography variant="caption">{multByteStringSlice(json.description, 100)}</Typography>
+                                <Typography variant="h5">{channel.title}</Typography>
+                                <Typography variant="caption">{multByteStringSlice(channel.description, 100)}</Typography>
                             </Box>
                         </Box>
                     </Hidden>
                     <Hidden smUp>
                         <Box display="flex" flexDirection="column" alignItems="center">
-                            <img alt={json.title} className={classes.media} src={json.thumbnailUrl} />
-                            <Typography variant="subtitle2" className={classes.xsTitle}>{json.title}</Typography>
+                            <img alt={channel.title} className={classes.media} src={channel.thumbnailUrl} />
+                            <Typography variant="subtitle2" className={classes.xsTitle}>{channel.title}</Typography>
                         </Box>
                     </Hidden>
                 </CardContent>
