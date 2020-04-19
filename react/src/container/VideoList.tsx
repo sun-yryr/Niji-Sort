@@ -5,12 +5,14 @@ import Grid from '@material-ui/core/Grid';
 
 import { Button, Hidden } from '@material-ui/core';
 import { withStyles, Theme } from '@material-ui/core/styles';
+import { RouteComponentProps } from 'react-router-dom';
 import YtCard from '../component/YtCard';
 import YtCardMobile from '../component/YtCardMobile';
 import FilterBox from '../component/FilterBox';
 import Spinner from '../component/Spinner';
 
 import * as API from '../actions/SunApi';
+import { Video } from '../types';
 
 const useStyles = (theme: Theme) => ({
     button: {
@@ -18,8 +20,19 @@ const useStyles = (theme: Theme) => ({
     },
 });
 
-class VideoList extends React.Component {
-    constructor(props) {
+interface State {
+    status: boolean
+    result: Video[]
+    load: boolean
+    nowIndex: number
+}
+
+type UnionKey<Obj, Extract> = {[P in keyof Obj]: Obj[P] extends Extract ? P : never}[keyof Obj];
+type SortKey = UnionKey<Video, number> | 'Date';
+type SubObj<Obj, Extract> = {[P in UnionKey<Obj, Extract>]: Obj[P]}
+
+class VideoList extends React.Component<{}, State> {
+    constructor(props: RouteComponentProps) {
         super(props);
         this.state = {
             status: false,
@@ -27,13 +40,13 @@ class VideoList extends React.Component {
             load: true,
             nowIndex: 0,
         };
-        const re = /^\/(\S+)\/(\S+)/;
+        const re = /^\/(channel|group)\/(\S+)/;
         const tmpMatch = props.location.pathname.match(re);
         let option;
         if (tmpMatch) {
             option = { [tmpMatch[1]]: tmpMatch[2] };
         } else {
-            option = { hoge: 'huga' };
+            option = {};
         }
         API.getVideosList(option)
             .then((res) => {
@@ -52,13 +65,14 @@ class VideoList extends React.Component {
         this.prevPage = this.prevPage.bind(this);
     }
 
-    sortFilter(Key, Order) {
+    sortFilter(Key: UnionKey<Video, number> | 'Date', Order: boolean) {
         this.setState({ load: true });
-        if (!this.state.status) {
+        const { status, result } = this.state;
+        if (!status) {
             alert('先にchannelを検索してください');
             return;
         }
-        const tmp_sorted = this.state.result.sort((a, b) => {
+        const tmpSorted = result.sort((a, b) => {
             if (Key === 'Date') {
                 const A = moment(a.publishedAt, 'YYYY-MM-DDTHH:mm:ss.SSSZ');
                 const B = moment(b.publishedAt, 'YYYY-MM-DDTHH:mm:ss.SSSZ');
@@ -68,25 +82,27 @@ class VideoList extends React.Component {
                 return (Order) ? 1 : -1;
             }
             if (Order) {
-                return (parseFloat(b[Key]) - parseFloat(a[Key]));
+                return (b[Key] - a[Key]);
             }
-            return (parseFloat(a[Key]) - parseFloat(b[Key]));
+            return (a[Key] - b[Key]);
         });
         this.setState({ nowIndex: 0 });
-        this.setState({ result: tmp_sorted });
+        this.setState({ result: tmpSorted });
         this.setState({ load: false });
     }
 
     nextPage() {
-        if (this.state.nowIndex + 30 < this.state.result.length) {
-            this.setState({ nowIndex: this.state.nowIndex + 30 });
+        const { nowIndex, result } = this.state;
+        if (nowIndex + 30 < result.length) {
+            this.setState({ nowIndex: nowIndex + 30 });
             window.scrollTo(0, 0);
         }
     }
 
     prevPage() {
-        if (this.state.nowIndex - 30 >= 0) {
-            this.setState({ nowIndex: this.state.nowIndex - 30 });
+        const { nowIndex } = this.state;
+        if (nowIndex - 30 >= 0) {
+            this.setState({ nowIndex: nowIndex - 30 });
             window.scrollTo(0, 0);
         }
     }

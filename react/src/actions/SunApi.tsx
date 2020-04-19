@@ -1,6 +1,6 @@
 import axios from 'axios';
 // Types
-import { Channel } from '../types';
+import { Channel, Video } from '../types';
 
 const SERVER_URL = 'https://ytsort.sun-yryr.com/api';
 
@@ -25,7 +25,7 @@ type getVideosListParams = {
  *                        [まだ] queryが指定されている → キーワード検索
  * @return {Object | null} 受け取ったデータ
  */
-export async function getVideosList(option: getVideosListParams) {
+export async function getVideosList(option: getVideosListParams): Promise<Video[] | null> {
     let requestUrl;
     if (option.channel) {
         requestUrl = `${SERVER_URL}/videos/channel/${option.channel}`;
@@ -38,7 +38,7 @@ export async function getVideosList(option: getVideosListParams) {
     const res = await axios.get(requestUrl)
         // FIX: ちゃんとハンドリングしましょう
         .catch(() => null);
-    return res ? res.data : null;
+    return res ? res.data as Video[] : null;
 }
 
 

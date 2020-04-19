@@ -1,1 +1,1 @@
-export type { Channel } from './youtube';
+export type { Channel, Video } from './youtube';
