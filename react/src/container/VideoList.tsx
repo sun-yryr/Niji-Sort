@@ -12,7 +12,7 @@ import FilterBox from '../component/FilterBox';
 import Spinner from '../component/Spinner';
 
 import * as API from '../actions/SunApi';
-import { Video } from '../types';
+import { Video, UnionKey } from '../types';
 
 const useStyles = (theme: Theme) => ({
     button: {
@@ -27,9 +27,7 @@ interface State {
     nowIndex: number
 }
 
-type UnionKey<Obj, Extract> = {[P in keyof Obj]: Obj[P] extends Extract ? P : never}[keyof Obj];
-type SortKey = UnionKey<Video, number> | 'Date';
-type SubObj<Obj, Extract> = {[P in UnionKey<Obj, Extract>]: Obj[P]}
+export type SortKey = UnionKey<Video, number> | 'Date';
 
 class VideoList extends React.Component<{}, State> {
     constructor(props: RouteComponentProps) {
@@ -65,7 +63,7 @@ class VideoList extends React.Component<{}, State> {
         this.prevPage = this.prevPage.bind(this);
     }
 
-    sortFilter(Key: UnionKey<Video, number> | 'Date', Order: boolean) {
+    sortFilter(Key: SortKey, Order: boolean) {
         this.setState({ load: true });
         const { status, result } = this.state;
         if (!status) {
@@ -108,11 +106,11 @@ class VideoList extends React.Component<{}, State> {
     }
 
     render() {
-        const { result, nowIndex } = this.state;
+        const { result, nowIndex, load } = this.state;
         return (
             <Box>
-                {(this.state.load || result.length === 0) ? null : (
-                    <FilterBox state={this.state} sortFilter={(Key, Order) => this.sortFilter(Key, Order)} />
+                {(load || result.length === 0) ? null : (
+                    <FilterBox sortFilter={(Key, Order) => this.sortFilter(Key, Order)} />
                 )}
                 <Hidden xsDown>
                     <Grid container justify="space-around">
